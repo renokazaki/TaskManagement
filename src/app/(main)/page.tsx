@@ -1,8 +1,24 @@
+import Cards from "@/components/myComponents/Card/Cards";
+
 export default function Home() {
   return (
-    <div>
-      hello
-      <div></div>
+    <div className="flex flex-wrap justify-around">
+      <Cards />
+      <Cards />
+      <Cards />
+      <Cards />
+      <Cards />
+      <Cards /> <Cards />
+      <Cards />
+      <Cards />
+      <Cards />
+      <Cards />
+      <Cards /> <Cards />
+      <Cards />
+      <Cards />
+      <Cards />
+      <Cards />
+      <Cards />
     </div>
   );
 }
