@@ -13,45 +13,53 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { LuFolderPlus } from "react-icons/lu"; //react-iconよりカテゴリ追加マーク
+import { FcPlus } from "react-icons/fc";
 
-import { getCategory, addCategory } from "../../../lib/supabasefunction";
+import { addTask, getCategoryDescription } from "../../../lib/supabasefunction";
 import { useState } from "react";
 
-import { category } from "@/app/types";
+import { categoryDescription } from "@/app/types";
+import { useParams } from "next/navigation";
 
 interface TaskAddButtonProps {
-  setCategory: (category: category[]) => void;
+  setTaskDescription: (categoryDescription: categoryDescription[]) => void;
 }
 
-const TaskAddButton: React.FC<TaskAddButtonProps> = ({ setCategory }) => {
-  //Category名の入力用
-  const [text, setText] = useState("");
+const TaskAddButton: React.FC<TaskAddButtonProps> = ({
+  setTaskDescription,
+}) => {
+  const { id } = useParams(); // ページのIDを取得
+  const categoryId = parseInt(id as string, 10); // IDを整数に変換
 
-  const handleSubmit = () => {
-    addCategory(text);
-    setText(""); // フィールドをクリア
-    fetchCategories(); // カテゴリを再取得
+  //タスクの詳細入力用
+  const [title, setTitle] = useState("");
+  const [description, setDescrpiton] = useState("");
+
+  const handleSubmit = async () => {
+    await addTask(categoryId, title, description);
+    setTitle(""); // フィールドをクリア
+    setDescrpiton(""); // フィールドをクリア
+    await fetchAllTask(); // タスクの情報を再取得
   };
 
-  // カテゴリを再取得する関数
-  const fetchCategories = async () => {
-    const updateCategory = await getCategory();
-    if (updateCategory.data) {
-      setCategory(updateCategory.data);
+  // タスクを再取得する関数
+  const fetchAllTask = async () => {
+    const updateTask = await getCategoryDescription(categoryId);
+    if (updateTask.data) {
+      setTaskDescription(updateTask.data);
     }
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <LuFolderPlus size={40} />
+        <FcPlus size={60} />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>カテゴリの追加</DialogTitle>
+          <DialogTitle>タスクの追加</DialogTitle>
           <DialogDescription>
-            カテゴリのタイトルを入力してください。
+            タスクの詳細を入力してください。
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -62,16 +70,21 @@ const TaskAddButton: React.FC<TaskAddButtonProps> = ({ setCategory }) => {
             <Input
               id="title"
               className="col-span-3"
-              onChange={(e) => setText(e.target.value)}
-              value={text}
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
             />
           </div>
-          {/* <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="description" className="text-right">
+              詳細
             </Label>
-            <Input id="username" className="col-span-3" />
-          </div> */}
+            <Input
+              id="description"
+              className="col-span-3"
+              onChange={(e) => setDescrpiton(e.target.value)}
+              value={description}
+            />
+          </div>
         </div>
         <DialogFooter>
           <Button type="submit" onClick={handleSubmit}>

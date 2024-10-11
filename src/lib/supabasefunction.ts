@@ -16,17 +16,17 @@ export const addCategory = async (category : string) =>{
 //=====================================================================================================================
 
 //category内のtaskの詳細取得用
-export const getCategoryDescription = async (categoryId : number) =>{
+export const getCategoryDescription = async (category_Id : number) =>{
     const categoryDescription = await supabase
     .from("categoryDescription")
     .select("*")
-    .eq("category_id", categoryId)
+    .eq("category_id", category_Id)
     return categoryDescription
 }
 
 //categoryにtask追加用
-export const sentMessage = async (room_id : number,chat : string) =>{
-    await supabase.from("roomDescription").insert({room_id:room_id,chat:chat})
+export const addTask = async (category_id : number,taskTitle : string,taskDescription : string) =>{
+    await supabase.from("categoryDescription").insert({category_id:category_id,taskTitle:taskTitle ,taskDescription:taskDescription})
 }
 //=====================================================================================================================
 

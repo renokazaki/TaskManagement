@@ -6,6 +6,9 @@ import { getCategoryDescription } from "../../../lib/supabasefunction";
 import { useEffect, useState } from "react";
 
 import { categoryDescription } from "@/app/types";
+import TaskAddButton from "@/components/myComponents/AddButton/TaskAddButton";
+import { GiHamburgerMenu } from "react-icons/gi";
+import MenuButton from "@/components/myComponents/MenuButton/MenuButton";
 
 interface Params {
   params: { id: number };
@@ -29,15 +32,21 @@ export default function CategoryDescrptionPage({ params }: Params) {
       };
       getCategoryTask();
     }
-  }, [params]);
+  }, []);
 
   return (
-    <div className="flex flex-wrap justify-around">
-      {taskDescription.map((taskItem) => (
-        <div key={taskItem.id} className="flex flex-wrap justify-around">
-          <Cards taskItem={taskItem} />
-        </div>
-      ))}
+    <div>
+      <div className="flex flex-wrap justify-around">
+        {taskDescription.map((taskItem) => (
+          <div key={taskItem.id} className="flex flex-wrap justify-around">
+            <Cards taskItem={taskItem} />
+          </div>
+        ))}
+      </div>
+
+      <div className="fixed bottom-4 right-4 ">
+        <TaskAddButton setTaskDescription={setTaskDescription} />
+      </div>
     </div>
   );
 }
