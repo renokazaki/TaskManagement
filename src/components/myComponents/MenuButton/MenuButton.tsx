@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
   Dialog,
@@ -13,16 +15,16 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CategoryAddButton from "../AddButton/CategoryAddButton";
 
-interface NavigationCategoryProps {
-  categoryList: category[]; // categoryNameのプロップスとして型定義
-}
+import { getCategory } from "../../../lib/supabasefunction";
 
-const MenuButton = ({
+const MenuButton = () => {
   //分割代入の一種
   //categoryList プロパティの値を initialCategoryList という変数名で受け取ります。
-  categoryList: initialCategoryList,
-}: NavigationCategoryProps) => {
+
   const [isOpen, setIsOpen] = useState(false);
+
+  //カテゴリ名格納用
+  const [category, setCategory] = useState<category[]>([]);
 
   // ダイアログを開閉する関数
   const handleDialogToggle = () => setIsOpen(true);
@@ -30,13 +32,22 @@ const MenuButton = ({
   // Linkをクリックした際にダイアログを閉じる
   const handleLinkClick = () => setIsOpen(false);
 
-  const [categoryList, setCategoryList] =
-    useState<category[]>(initialCategoryList);
-
   // カテゴリ追加後の処理
   const handleCategoryAdd = (newCategories: category[]) => {
-    setCategoryList(newCategories);
+    setCategory(newCategories);
   };
+
+  //画面表示時にCategory名を表示するため
+  useEffect(() => {
+    //Category名取得用function
+    const getCategoryName = async () => {
+      const texts = await getCategory();
+      if (texts.data) {
+        setCategory(texts.data);
+      }
+    };
+    getCategoryName();
+  }, []);
 
   return (
     <div>
@@ -54,7 +65,7 @@ const MenuButton = ({
             </div>
           </DialogHeader>
           <ScrollArea className="rounded-md border p-4 overflow-y-auto">
-            {categoryList.map((category) => (
+            {category.map((category) => (
               <div
                 key={category.id}
                 className="grid gap-4 py-4  hover:bg-gray-600 border-b border-black"
