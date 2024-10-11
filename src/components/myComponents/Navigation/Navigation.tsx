@@ -21,10 +21,9 @@ const Navigation = () => {
       if (texts.data) {
         setCategory(texts.data);
       }
-      console.log(category);
     };
     getCategoryName();
-  }, []);
+  }, [category]);
 
   return (
     <>
