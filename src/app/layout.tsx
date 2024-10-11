@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="h-screen w-screen bg-slate-300">
-          <div className="z-50 block sm:hidden fixed bottom-4 left-4">
+          <div className="z-50 block sm:hidden fixed bottom-4 left-4 bg-slate-400 ">
             <MobileNavigation />
           </div>
           <div className="flex h-full w-full ">

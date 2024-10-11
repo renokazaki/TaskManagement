@@ -5,7 +5,7 @@ const Navigation = () => {
 
   return (
     <>
-      <div>
+      <div className="flex items-center justify-center w-16 h-16 ">
         <MenuButton />
       </div>
     </>
