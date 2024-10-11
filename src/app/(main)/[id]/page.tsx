@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 
 import { categoryDescription } from "@/app/types";
 import TaskAddButton from "@/components/myComponents/AddButton/TaskAddButton";
-import { GiHamburgerMenu } from "react-icons/gi";
-import MenuButton from "@/components/myComponents/MenuButton/MenuButton";
+// import MenuButton from "@/components/myComponents/MenuButton/MenuButton";
 
 interface Params {
   params: { id: number };

@@ -1,13 +1,13 @@
 "use client";
 
-import NavigationCategory from "./NavigationCategory/NavigationCategory";
+// import NavigationCategory from "./NavigationCategory/NavigationCategory";
 
 import { getCategory } from "../../../lib/supabasefunction";
 import { useEffect, useState } from "react";
 
 //タイプ
 import { category } from "@/app/types";
-import AddButton from "../AddButton/CategoryAddButton";
+// import AddButton from "../AddButton/CategoryAddButton";
 import MenuButton from "../MenuButton/MenuButton";
 
 const Navigation = () => {
