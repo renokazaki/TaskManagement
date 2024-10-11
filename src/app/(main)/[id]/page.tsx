@@ -31,7 +31,7 @@ export default function CategoryDescrptionPage({ params }: Params) {
       };
       getCategoryTask();
     }
-  }, []);
+  }, [params.id]);
 
   return (
     <div>
