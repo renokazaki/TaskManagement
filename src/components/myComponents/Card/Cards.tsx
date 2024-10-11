@@ -9,14 +9,21 @@ import {
 //react-iconsのチェックアイコン
 import { FcApproval } from "react-icons/fc";
 
-const Cards = () => {
+import { categoryDescription } from "@/app/types";
+
+// プロップスの型定義を修正
+interface CardsProps {
+  taskItem: categoryDescription;
+}
+
+const Cards = ({ taskItem }: CardsProps) => {
   return (
     <div>
       <Card className="relative w-80 sm:w-48 h-60 sm:h-52 m-8 ">
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
+          <CardTitle>{taskItem.taskTitle}</CardTitle>
           <CardDescription className="text-xs line-clamp-4">
-            Card Description
+            {taskItem.taskDescription}
           </CardDescription>
         </CardHeader>
         <div className="flex">
