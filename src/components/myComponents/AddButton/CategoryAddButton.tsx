@@ -24,16 +24,20 @@ interface CategoryAddButtonProps {
   setCategory: (category: category[]) => void;
 }
 
+//両方とも引数はcategory型のreturnなしの関数を受け取っている(setCategoryにしても、handleCategoryAddにしても。)
+//useStateのsetCategoruなら、ここでsetする
+//handleCategoryAdd(useStateではなし関数)であるならば、引数を指定して呼び出しという事になって、
+//受け渡し先の親要素で実行される。
 const CategoryAddButton: React.FC<CategoryAddButtonProps> = ({
   setCategory,
 }) => {
   //Category名の入力用
   const [text, setText] = useState("");
 
-  const handleSubmit = () => {
-    addCategory(text);
+  const handleSubmit = async () => {
+    await addCategory(text);
     setText(""); // フィールドをクリア
-    fetchCategories(); // カテゴリを再取得
+    await fetchCategories(); // カテゴリを再取得
   };
 
   // カテゴリを再取得する関数

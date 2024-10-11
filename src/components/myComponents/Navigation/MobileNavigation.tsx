@@ -28,7 +28,9 @@ const Navigation = () => {
 
   return (
     <>
-      <MenuButton category={category} />
+      <div>
+        <MenuButton categoryList={category} />
+      </div>
       {/* <div>
         <h1 className="flex justify-between text-2xl my-8 w-full border-b-2 border-white">
           カテゴリ一覧
